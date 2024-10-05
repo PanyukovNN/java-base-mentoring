@@ -3,6 +3,5 @@ package ru.panyukovnn.javabasementoring;
 public class Main {
 
     public static void main(String[] args) {
-
     }
 }
