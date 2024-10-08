@@ -2,8 +2,6 @@ package ru.panyukovnn.javabasementoring.abstractclasses;
 
 import org.junit.jupiter.api.Test;
 
-import static ru.panyukovnn.javabasementoring.constants.Constants.LANG_RU;
-
 public class Runner {
 
     @Test

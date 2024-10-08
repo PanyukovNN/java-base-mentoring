@@ -2,8 +2,6 @@ package ru.panyukovnn.javabasementoring;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.LinkedList;
-
 public class PrimitivesAndStringTest {
 
     @Test
