@@ -10,5 +10,5 @@ public abstract class AbstractParent {
         System.out.println("Заканчиваю выполнятьобщую логику");
     }
 
-    public abstract String getChildName();
+    protected abstract String getChildName();
 }

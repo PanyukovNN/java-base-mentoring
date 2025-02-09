@@ -2,22 +2,27 @@ package ru.panyukovnn.javabasementoring;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 public class PrimitivesAndStringTest {
 
     @Test
     void weight() {
-        byte b = 1; // -128 +127 - 1 байт
-        short s = 1; // -32000 +32000 - 2 байта
-        int i = 1; // -2147000000 +2147000000 - 4 байта
-        long l = 1; // 8 байт
+        byte b = 0; // -128 +127 - 1 байт
+        short s = 0; // -32000 +32000 - 2 байта
+        int i = 0; // -2147000000 +2147000000 - 4 байта
+        long l = 0L; // 8 байт
         float f = .0f; // 4 байта
         double d = .0; // 8 байт
-        char c = 'c'; // 0 +64000 2 байта
-        boolean bool; // 1 байт true/false
+        char c = 'c'; // 0 +64000 2 байта. Значение по умолчанию \u0000 - специальный нулевой символ
+        boolean bool = false; // 1 байт true/false
 
-        Object obj = new Object(); // Вес ссылки 4 байта (если куча больше 32 Гб, то 8 байт)
+        Object obj = new Object(); // Значение по умолчанию null. Вес ссылки 4 байта (если куча больше 32 Гб, то 8 байт)
 
         String str = "abc"; // UTF-16 2 байта - UTF-8 1 байт
+
+        Integer[] arr = new Integer[Integer.MAX_VALUE]; // [ 0, 0, 0, 0 ...
 
         // Хитрый вопрос с собеседования:
         // Сколько будет весить объект в котором есть два поля, одна с типом boolean, другая с типом int
@@ -71,5 +76,35 @@ public class PrimitivesAndStringTest {
         System.out.println(i.hashCode());
         i += 2;
         System.out.println(i.hashCode());
+    }
+
+    @Test
+    void concurrentModification() throws InterruptedException {
+        List<String> list = new CopyOnWriteArrayList<>();
+        list.add("Hello");
+
+        Thread thread = new Thread(() -> {
+            process(list);
+        });
+        thread.start();
+
+        list.add("World");
+
+        thread.join();
+    }
+
+    private void process(List<String> list) {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        list.forEach(System.out::println);
+    }
+
+    @Test
+    void test() {
+
     }
 }
